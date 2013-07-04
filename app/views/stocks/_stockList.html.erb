@@ -22,8 +22,27 @@
 <% if current_station != list.station_id %>
   
 <% if @item != nil && current_station != nil %>
-  </table>
-  <strong><%= "Total supplied: #{total_initial_stock}, Total present: #{total_present_stock}, Total issued: #{total_issued_stock}, Total transfered:#{total_transfered_stock}, Total destroyed: #{total_destroyed_stock}, Total sold: #{total_sold_stock}" %></strong><br><br>
+  
+  <tr>
+    <td><strong>Total<strong><td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><strong><%= total_initial_stock %></strong></td>
+    <td><strong><%=total_present_stock%></strong></td>
+    <td><strong><%=total_issued_stock%></strong></td>
+    <td><strong><%=total_transfered_stock%></strong></td>
+    <td><strong><%=total_destroyed_stock%></strong></td>
+    <td><strong><%=total_sold_stock%></strong></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  <tr>
+</table>
   <%  total_initial_stock = 0 
       total_present_stock = 0 
       total_issued_stock = 0
@@ -109,7 +128,27 @@
   <% end %>
 <% end %>
  
-</table>
+
 <% if @item != nil %>
-<strong><%= "Total supplied: #{total_initial_stock}, Total present: #{total_present_stock}, Total issued: #{total_issued_stock}, Total transfered:#{total_transfered_stock}, Total destroyed: #{total_destroyed_stock}, Total sold: #{total_sold_stock}" %></strong>
+<tr>
+    <td><strong>Total<strong><td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><strong><%= total_initial_stock %></strong></td>
+    <td><strong><%=total_present_stock%></strong></td>
+    <td><strong><%=total_issued_stock%></strong></td>
+    <td><strong><%=total_transfered_stock%></strong></td>
+    <td><strong><%=total_destroyed_stock%></strong></td>
+    <td><strong><%=total_sold_stock%></strong></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  <tr>
 <% end %>
+
+</table>
