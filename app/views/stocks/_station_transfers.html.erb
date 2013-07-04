@@ -3,7 +3,10 @@
 
 
 <table class="table table-striped table-bordered table-condensed">
-  <caption><%= "Transfers to #{@station.nameStation}" %></caption>
+  <caption><% if @station != nil %>
+    <%= "Transfers from #{@station.nameStation}" %>
+    <% end %>
+  </caption>
   <thead>
     <tr>
       <th>Chalan #</th>
@@ -56,7 +59,10 @@
 
 <%= form_tag( '/transfer_print', format: 'pdf', method: 'post') do %>
 <table class="table table-striped table-bordered table-condensed">
-  <caption><%= "Transfers from #{@station.nameStation}" %></caption>
+  <caption><% if @station != nil %>
+    <%= "Transfers from #{@station.nameStation}" %>
+    <% end %>
+  </caption>
   <thead>
     <tr>
       <th>To print</th>

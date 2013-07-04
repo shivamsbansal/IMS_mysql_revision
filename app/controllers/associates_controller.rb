@@ -44,7 +44,7 @@ class AssociatesController < ApplicationController
     	
   	if @associate.save
       flash[:success] = "Successfully added #{@associate.name}"
-      redirect_to associates_path
+      redirect_to '/associates/new'
     else
     	render 'new'
   	end

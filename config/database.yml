@@ -7,7 +7,7 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: IMS
+  database: try
   pool: 5
   username: shivam 
   password: password

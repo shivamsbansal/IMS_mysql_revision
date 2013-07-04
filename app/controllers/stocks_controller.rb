@@ -10,7 +10,7 @@ class StocksController < ApplicationController
   def choice
     @category = params[:category]
     if @category != 'All'
-      @list =Item.where(itemCategory_type: @category.capitalize)
+      @list = Category.find_by_nameCategory(@category).items
     else
       @list = Item.all
     end
@@ -268,7 +268,7 @@ class StocksController < ApplicationController
         @transfer[:stock_id] = @transfer_stock.id
         @transfer.save
         flash[:success] = "Stock Transfered"
-        redirect_to stocks_path
+        redirect_to "/show_stock/#{@stock.id}"
       else
         @stock.presentStock += @quantity
         @stock.transferedStock -=@quantity
@@ -288,7 +288,7 @@ class StocksController < ApplicationController
           @asset.update_attributes(stock_id: @transfer_stock.id)
         end
         flash[:success] = "Stock Transfered"
-        redirect_to stocks_path
+        redirect_to "/show_stock/#{@stock.id}"
       else
         @stock.presentStock += @quantity
         @stock.transferedStock -=@quantity
@@ -330,7 +330,11 @@ class StocksController < ApplicationController
       @stock.save
       @transfer.save
       flash[:success] = "acknowledged"
-      redirect_to '/transfers_list'
+      @stations = user_access_stations(current_user)
+      @stationList = @stations[:stations].map { |station| [station.nameStation, station.id]}
+      @transfers_to = Transfers.where(to: @stock.station, dateOfReceipt: nil)
+      @transfers_from = Transfers.where(from: @stock.station, dateOfReceipt: nil )
+      render 'transfers_list'
     else
       flash[:notice] = "error"
       redirect_to '/transfers_list'
