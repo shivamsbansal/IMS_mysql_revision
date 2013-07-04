@@ -1,0 +1,36 @@
+<% provide(:title, 'Edit Station') %>
+<h1>Edit Station</h1>
+
+<div class="row">
+  <div class="span4 offset3">
+    <%= form_for(@station) do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= hidden_field_tag(:id, @station[:id]) %>
+      <%= label_tag(:nameStation, "Station name:") %>
+      <%= text_field_tag(:nameStation, @station.nameStation) %>
+
+      <%= label_tag(:territory_id, "Territory:") %>
+      <% territory_array = Territory.all.map { |territory| [territory.nameTerritory, territory.id]} %>
+      <%= select_tag(:territory_id, options_for_select(territory_array, @station.territory_id)) %>
+
+      <%= label_tag(:addr1, "Address line 1:") %>
+      <%= text_field_tag(:addr1, @station.addr1) %>
+
+      <%= label_tag(:addr2, "Address line 2:") %>
+      <%= text_field_tag(:addr2, @station.addr2) %>
+
+      <%= label_tag(:pincode, "Pincode:") %>
+      <%= text_field_tag(:pincode, @station.pincode) %>
+
+      <%= label_tag(:contactDetails, "Contact Details:") %>
+      <%= text_field_tag(:contactDetails, @station.contactDetails) %>
+
+
+      <%= f.submit "Save changes", class: "btn  btn-primary" %>
+
+  <% end %>
+
+  </div>
+</div>

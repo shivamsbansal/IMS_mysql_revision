@@ -1,0 +1,21 @@
+<% provide(:title, 'Edit Region') %>
+<h1>Edit Region</h1>
+
+<div class="row">
+  <div class="span4 offset3">
+    <%= form_for(@region) do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= hidden_field_tag(:id, @region[:id]) %>
+
+      <%= label_tag(:nameRegion, "Region name:")%>
+      <%= text_field_tag(:nameRegion, @region.nameRegion) %>
+
+      <%= label_tag(:idRegion, "Region Id:") %>
+      <%= text_field_tag(:idRegion, @region.idRegion) %>
+
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

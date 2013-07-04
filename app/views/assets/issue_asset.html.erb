@@ -1,0 +1,42 @@
+<% provide(:title, 'Issue Asset') %>
+<h1>Issue asset</h1>
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption>Asset Details</caption>
+  <thead>
+    <tr>
+      <th>Asset Serial Number</th>
+      <th>Stock Id</th>
+      <th>Invoice Number</th>
+      <th>Item Name</th>
+    </tr>
+  </thead>
+
+	<% if @asset!=nil %>
+    <tr>
+      <td><%= @asset.assetSrNo %></td>
+      <td><%= @stock.id %></td>
+      <td><%= @stock.invoiceNo %></td>
+      <td><%= @stock.item.nameItem %></td>
+    </tr>
+	<% end %>
+</table>
+
+<div class="row">
+  <div class="span4 offset4">
+    <%= form_tag("/issueAsset", method: "put") do %>
+	
+			<%= hidden_field_tag(:asset_id, @asset.id) %>
+
+    	<%= label_tag(:dateOfIssue, "Date of Issue:") %>
+      <%= date_select(:issued_item,:dateOfIssue, :order => [:day, :month, :year], :start_year => Time.now.year - 20, :end_year => Time.now.year) %>
+
+     	<%= label_tag(:associate_id, "Associate:") %>
+			<% @array = @associates.map {|f| ["#{f.name}, #{f.dateOfJoining}",f.id] } %>
+			<%= select_tag(:associate_id, options_for_select(@array)) %>
+
+      <%= submit_tag "Issue Asset", class: "btn  btn-primary" %>
+  	<% end %>
+
+	</div>
+</div>

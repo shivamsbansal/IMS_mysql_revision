@@ -1,0 +1,43 @@
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption>Item</caption>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Brand</th>
+      <th>Model</th>
+      <th>Distinction</th>
+      <% if current_user.admin? %>
+      <th>Cost per item</th>
+      <% end %>
+      <th>Life Cycle</th>
+      <th>Lead Time</th>
+      <th>Minimum Stock</th>
+      <th>Asset Type</th>
+      <th>Vendor</th>
+    </tr>
+  </thead>
+    <tr>
+      <td><%= item.codeItem %></td>
+      <td><%= item.nameItem %></td>
+      <td><%= item.brand %></td>
+      <td><%= item.model %></td>
+      <td><%= item.distinction %></td>
+      <% if current_user.admin? %>
+      <td><%= item.cost %></td>
+      <% end %>
+      <td><%= toSensibleWords(toSensibleTime(item.lifeCycle)) %></td>
+      <td><%= toSensibleWords toSensibleTime item.leadTime %></td>
+      <td><%= item.minimumStock %></td>
+      <td><%= item.assetType.capitalize %></td>
+      <td><%= if item.vendor != nil
+                item.vendor.nameVendor
+              else 
+                'No vendor'
+              end
+          %>
+      </td>      
+    </tr>     
+
+</table>

@@ -1,0 +1,60 @@
+
+---
+chalan_numbers:
+  columns:
+  - id
+  - chalanNo
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - '100'
+    - 2013-07-04 08:18:08.000000000 Z
+    - 2013-07-04 08:18:08.000000000 Z
+
+---
+regions:
+  columns:
+  - id
+  - idRegion
+  - nameRegion
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - IND
+    - India
+    - 2013-07-04 08:16:36.000000000 Z
+    - 2013-07-04 08:16:36.000000000 Z
+  - - 2
+    - CTR
+    - Central Team Region
+    - 2013-07-04 08:17:17.000000000 Z
+    - 2013-07-04 08:17:17.000000000 Z
+
+---
+users:
+  columns:
+  - id
+  - name
+  - email
+  - phone
+  - password_digest
+  - admin
+  - remember_token
+  - created_at
+  - updated_at
+  - level_id
+  - level_type
+  records: 
+  - - 2
+    - admin
+    - admin@foo.com
+    - 9876543210
+    - $2a$10$baEn8OAORyFJOJCl9VgXwO4E4IDsKgT/0xUg/HnLX0i8.wmwNMYLO
+    - true
+    - 1jhN81aIZgp7r8hT136OVQ
+    - 2013-07-04 08:15:11.000000000 Z
+    - 2013-07-04 08:15:11.000000000 Z
+    - 1
+    - 'admin'

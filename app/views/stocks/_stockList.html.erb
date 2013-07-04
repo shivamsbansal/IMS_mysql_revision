@@ -1,0 +1,115 @@
+<div id="item_details">
+</div>
+
+<% if @item!=nil %>
+<%= render 'stocks/itemDetails', item: @item %>
+<% end %>
+
+<div id="stock_comments">
+</div>
+
+<% if @stocks!=nil %>
+  <% current_station = nil %>
+  <%  total_initial_stock = 0 
+      total_present_stock = 0 
+      total_issued_stock = 0
+      total_transfered_stock = 0
+      total_sold_stock = 0
+      total_destroyed_stock = 0
+  %>
+  <% @stocks.each do |list| %>
+
+<% if current_station != list.station_id %>
+  
+<% if @item != nil && current_station != nil %>
+  </table>
+  <strong><%= "Total supplied: #{total_initial_stock}, Total present: #{total_present_stock}, Total issued: #{total_issued_stock}, Total transfered:#{total_transfered_stock}, Total destroyed: #{total_destroyed_stock}, Total sold: #{total_sold_stock}" %></strong><br><br>
+  <%  total_initial_stock = 0 
+      total_present_stock = 0 
+      total_issued_stock = 0
+      total_transfered_stock = 0
+      total_sold_stock = 0
+      total_destroyed_stock = 0
+  %>
+<% end %>
+<% current_station = list.station_id %>
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption><strong><%= Station.find(current_station).nameStation %></strong></caption>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>PO Id</th>
+      <th>Procurement Date</th>
+      <th>Invoice No.</th>
+      <th>Invoice Date</th>
+      <th>Warranty Period</th>
+      <th>Stock Supplied</th>
+      <th>Present</th>
+      <th>Issued</th>
+      <th>Transfered</th>
+      <th>Destroyed/ Consumed</th>
+      <th>Sold</th>
+      <th>Issue stock</th>
+      <th>Stock</th>
+      <th>Transfer</th>
+      <th>Sell</th>
+      <th>Comments</th>
+      <% if current_user.admin? %>
+      <th>Edit</th>
+      <% end %>
+    </tr>
+  </thead>
+<% end %>
+
+  <% if list.inTransit == false %>
+    <tr>
+      <%  total_initial_stock += list.initialStock 
+          total_present_stock += list.presentStock
+          total_issued_stock += list.issuedStock
+          total_transfered_stock += list.transferedStock
+          total_destroyed_stock += list.destroyedStock
+          total_sold_stock += list.soldStock %>
+      <td><%= list.item.nameItem %></td>
+      <td><%= list.poId %></td>
+      <td><%= list.poDate.strftime('%d/%m/%Y') %></td>
+      <td><%= list.invoiceNo %></td>
+      <td><%= list.invoiceDate.strftime('%d/%m/%Y') %></td>
+      <td><%= toSensibleWords toSensibleTime list.warrantyPeriod %></td>
+      <td><%= list.initialStock %></td>
+      <td><%= list.presentStock %></td>
+      <td><%= list.issuedStock %></td>
+      <td><%= list.transferedStock %></td>
+      <td><%= list.destroyedStock %></td>
+      <td><%= list.soldStock %></td>
+      <% if list.item.assetType == 'fixed' %>
+        <td><%=link_to "issue", "/asset_list/#{list.id}"%></td>
+        <td><%=link_to "add asset", "/present_stock_edit/#{list.id}" %></td>
+      <% else %>
+        <td><%=link_to "issue", "/consumable_issue/#{list.id}"%></td>
+        <% if list.presentStock > 0 %>
+          <td><%=link_to "consumed", "/present_stock_edit/#{list.id}" %></td>
+        <% else %>
+          <td>N.A.</td>
+        <% end %>
+      <% end %>
+      <% if list.presentStock > 0 %>
+        <td><%=link_to "transfer", "/initialise_transfer_stock/#{list.id}" %></td>
+        <td><%=link_to "sell", "/initialise_sell_stock/#{list.id}" %></td>
+      <% else %>
+        <td>N.A.</td>
+        <td>N.A.</td>
+      <% end %>
+      <td><%=link_to "comments", "/stock_comments/#{list[:id]}", remote: true %></td>
+      <% if current_user.admin? %>
+      <td><%=link_to "edit", edit_stock_path(list[:id]) %></td>
+      <% end %>
+    </tr>     
+  <% end %>
+  <% end %>
+<% end %>
+ 
+</table>
+<% if @item != nil %>
+<strong><%= "Total supplied: #{total_initial_stock}, Total present: #{total_present_stock}, Total issued: #{total_issued_stock}, Total transfered:#{total_transfered_stock}, Total destroyed: #{total_destroyed_stock}, Total sold: #{total_sold_stock}" %></strong>
+<% end %>

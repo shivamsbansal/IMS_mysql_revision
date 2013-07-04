@@ -1,0 +1,10 @@
+<%= form_tag("/assignLevel", method: "put") do %>
+	
+	<%= hidden_field_tag(:id, @id) %>
+	<%= hidden_field_tag(:level_type, @level_type) %>
+
+	<%= select_tag(:level_id, options_for_select(@array)) %>
+
+	<%= submit_tag "Save changes", class: "btn btn-primary" %>
+
+<% end %>

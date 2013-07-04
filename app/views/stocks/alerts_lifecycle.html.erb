@@ -1,0 +1,20 @@
+<% provide(:title, 'Stock alerts') %>
+<h1>Stock alerts</h1>
+<div class="row">
+  <div class="span4 offset4">
+  	
+    <%= form_tag("/calculate_lifecycle_alerts", method: :get) do %>
+
+      <%= label_tag(:station, "Station:") %>
+      <%= select_tag(:station, options_for_select(@stationList)) %>
+
+      <%= label_tag(:dateStart, "Starting Date:") %>
+      <%= date_select(:alert,:dateStart, :order => [:day, :month, :year], :start_year => Time.now.year - 5, :end_year => Time.now.year + 5)%>
+
+      <%= label_tag(:dateEnd, "Ending Date:") %>
+      <%= date_select(:alert,:dateEnd, :order => [:day, :month, :year], :start_year => Time.now.year - 5, :end_year => Time.now.year + 5) %>
+
+      <%= submit_tag "Submit", class: "btn  btn-primary" %>
+  	<% end %>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<% provide(:title, 'Present Stock Update') %>
+<h1>Present Stock Update</h1>
+
+<div id="item_details">
+</div>
+
+<%= render 'stockList' %>
+
+<div class="row">
+  <div class="span4 offset3">
+    <%= form_for(@stock, url: '/present_stock_update') do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= hidden_field_tag(:id, @stock.id) %>
+
+      <%= label_tag(:consumedStock, "Stock Consumed/Destroyed:") %>
+      <%= text_field_tag(:consumedStock) %>
+
+      <strong>Double check the details as a user you won't be able cancel the destroy.<strong><br>
+
+      <%= f.submit "Update present stock", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

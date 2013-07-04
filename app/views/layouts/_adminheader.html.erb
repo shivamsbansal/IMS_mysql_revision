@@ -1,0 +1,79 @@
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Associates <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to "List", associates_path %></li>
+    <li><%= link_to "Add/New", new_associate_path %></li>
+  </ul>
+</li>
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Users <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to "All", users_path %></li>
+    <li><%= link_to "Assign Station", "/unassignedUser" %></li>
+  </ul>
+</li>
+
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Levels <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu" >
+    <li class="dropdown-submenu">
+      <a tabindex="-1" href="#">Stations</a>
+      <ul class="dropdown-menu">
+        <li><%= link_to "List", stations_path %></li>
+        <li><%= link_to "Add/New", new_station_path %></li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a tabindex="-1" href="#">Territory</a>
+      <ul class="dropdown-menu">
+        <li><%= link_to "List", territories_path %></li>
+        <li><%= link_to "Add/New", new_territory_path %></li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a tabindex="-1" href="#">Region</a>
+      <ul class="dropdown-menu">
+        <li><%= link_to "List", regions_path %></li>
+        <li><%= link_to "Add/New", new_region_path %></li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Items <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to "List of Items", items_path %></li>
+    <li><%= link_to "Add/New Item", new_item_path %></li>
+    <li><%= link_to "List of category", '/items/list_category' %></li>
+    <li><%= link_to "Add/New Category", '/items/new_category' %></li>
+  </ul>
+</li>
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Stock <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to "List", stocks_path %></li>
+    <li><%= link_to "Add/New", new_stock_path %></li>
+    <li><%= link_to "Transfers", '/transfers_list' %></li>
+    <li><%= link_to "Purchase Cost", '/total_costs' %></li>
+  </ul>
+</li>
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Vendors <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to "List", vendors_path %></li>
+    <li><%= link_to "Add/New", new_vendor_path %></li>
+  </ul>
+</li>

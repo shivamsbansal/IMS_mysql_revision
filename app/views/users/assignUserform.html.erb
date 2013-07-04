@@ -1,0 +1,46 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+      <div class="row">
+      <div class="span2">
+        <%= link_to user.name, user %>
+      </div>
+      <% if current_user.admin? && !current_user?(user) %>
+      <div class="span3">
+        <%= form_tag("/chooseLevel",method: :get, remote: true) do %>
+
+          <%= hidden_field_tag(:id, user.id) %>
+          
+          <% level_array =[["Regional Manager", "Region"],["Territory Manager","Territory"],["Station Manager","Station"], ["Central Team", "admin"]] %>
+          <%= select_tag(:level_type, options_for_select(level_array)) %>
+          <%= submit_tag "Choose", class: "btn btn-primary" %> 
+
+        <% end %>
+    </div>
+    <div id="follow_form_<%= user.id %>" class="span6">
+      <%= form_tag("/assignLevel", method: "put") do %>
+  
+        <%= hidden_field_tag(:id, user.id) %>
+        <%= hidden_field_tag(:level_type, @level_type) %>
+
+        <%= select_tag(:level_id, options_for_select(@array)) %>
+
+        <%= submit_tag "Save changes", class: "btn btn-primary" %>
+
+      <% end %>
+    </div>
+    <div class="span1">
+      <%= link_to "delete ", user, method: :delete, data: { confirm: "You sure?" } %>
+    </div>
+      <% end %>
+    </div>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate %>

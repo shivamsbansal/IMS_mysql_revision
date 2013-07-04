@@ -1,0 +1,23 @@
+<% provide(:title, 'Present Stock Update') %>
+<h1>Present Stock Update</h1>
+
+<div id="item_details">
+</div>
+
+<%= render 'stockList' %>
+
+<div class="row">
+  <div class="span10 offset1">
+    <%= form_for(@asset, url: '/present_stock_update', method: 'put') do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= hidden_field_tag(:id, @stock[:id]) %>
+
+      <%= label_tag(:assetSrNo, "Asset Serial Numbers (input multiple serial number comma seperated):") %>
+      <%= text_field_tag(:assetSrNo, @params_assetSrNo) %>
+
+      <%= f.submit "Update present stock", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

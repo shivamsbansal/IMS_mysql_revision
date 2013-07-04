@@ -1,0 +1,5 @@
+== Welcome to Inventory Management System
+
+Tool for station manager / Leads to record, monitor & place order request for their station supplies. 
+Central monitoring of supplies inventory and consumption.
+Be able to calculate the associated cost by Region, by Station & by supply item

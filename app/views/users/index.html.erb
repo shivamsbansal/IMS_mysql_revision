@@ -1,0 +1,47 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate @users %>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+      <div class="row">
+      <div class="span2">
+      <% if user.admin? %>
+      <%= "Admin" %>
+      <% end %>
+      <%= link_to user.name, user %>
+    </div>
+    
+    <div class="span3">
+      Access: 
+
+      <%= if user.level_type == 'admin'
+            "Central Team"
+          elsif user.level_id!=nil
+            level_name="name#{user.level_type}".to_sym
+            user.level_type.constantize.find(user.level_id)[level_name] + ",#{user.level_type}"  
+          else 
+            "None"
+          end
+      %>
+    </div>
+    <% if current_user.admin? && !current_user?(user) %>
+      <div class="span1">
+        <%= link_to "edit ", edit_user_path(user) %>
+      </div>
+      <div class="span2">
+        <% if user.level_id!=nil %>
+          <%= link_to "withdraw level", "/retainLevel/#{user.id}", method: :delete, data: { confirm: "You sure?" } %>
+        <% end %>
+      </div>
+      <div class="span1">
+        <%= link_to "delete ", user, method: :delete, data: { confirm: "You sure?" } %>
+      </div>
+    <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate @users %>

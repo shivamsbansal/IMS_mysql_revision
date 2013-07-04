@@ -1,0 +1,79 @@
+<% provide(:title, 'Issued Assets') %>
+<h1>Issued Assets List</h1>
+
+
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption Associate</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Date Of Joinin</th>
+      <th>Station</th>
+    </tr>
+  </thead>
+<% if @associate!=nil %>
+    <tr>
+      <td><%= @associate.name%></td>
+      <td><%= @associate.email %></td>
+      <td><%= @associate.dateOfJoining.strftime('%d/%m/%Y') %></td>
+      <td><%= @associate.station.nameStation %></td>
+    </tr>   
+<% end %>
+
+</table>
+
+
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption>Fixed Asset Details</caption>
+  <thead>
+    <tr>
+      <th>Asset Serial Number</th>
+      <th>Item Name</th>
+      <th>Date Of Issue</th>
+      <th>Withdraw Asset</th>
+    </tr>
+  </thead>
+	<% if @assets!=nil %>
+		<% @assets.each do |list| %>
+	    <tr>
+	    	<% @stock = list.stock %>
+	      <td><%= link_to list.assetSrNo, "/asset_list/#{@stock.id}"%></td>
+	      <td><%= @stock.item.nameItem %></td>
+	      <td><%= list.issued_item.dateOfIssue.strftime('%d/%m/%Y') %></td>
+	      <td><%= link_to "withdraw", "/assets/withdraw_asset/#{list.id}" %></td>
+	    </tr>
+	<% end %>
+<% end %>
+
+</table>
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption>Consumables Details</caption>
+  <thead>
+    <tr>
+      <th>Stock</th>
+      <th>Item Name</th>
+      <th>Quantity</th>      
+      <th>Date Of Issue</th>
+      <th>Next Date Of Issue</th>
+      <th>Withdraw Consumable</th>
+    </tr>
+  </thead>
+  <% if @consumables!=nil %>
+    <% @consumables.each do |list| %>
+      <tr>
+        <% @stock = list.stock %>
+        <td><%= link_to 'details', "/show_stock/#{@stock.id}"%></td>
+        <td><%= @stock.item.nameItem %></td>
+        <td><%= list.quantity %></td>
+        <td><%= list.dateOfIssue.strftime('%d/%m/%Y') %></td>
+        <td><%= (list.dateOfIssue + @stock.item.lifeCycle.seconds).to_date.strftime('%d/%m/%Y') %></td>
+        <td><%= link_to "withdraw", "/consumables/withdraw/#{list.id}" %></td>
+      </tr>
+  <% end %>
+<% end %>
+
+</table>

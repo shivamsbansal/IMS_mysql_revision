@@ -1,0 +1,31 @@
+<% provide(:title, 'Stocks') %>
+<h1>Stock List</h1>
+
+<div class="row">
+  <div class="span4 offset4">
+    <%= form_tag("/stocks/categoryList", method: :get, remote: true) do %>
+
+      <%= label_tag(:category, "Category:") %>
+      <%= select_tag(:category,content_tag(:option,'All',:value=>"All") + options_from_collection_for_select(Category.all, "id", "nameCategory")) %>
+
+      <%= submit_tag "Select a category", class: "btn  btn-primary" %>
+  	<% end %>
+  </div>
+</div>
+<div class="row" >
+	<div class="span4 offset4">
+		<%= form_tag("/stocks/itemList", method: :get, remote: true) do %>
+			<%= label_tag(:item_id, "Item:") %>
+	    <%  @items = Item.all %>
+	    <%= select_tag(:item_id,content_tag(:option,'All',:value=>"All") +  options_from_collection_for_select(@items, "id","nameItem")) %>
+
+	    <%= label_tag(:station_id, "Station:") %>
+      <%  result = user_access_stations(current_user) %>
+      <%= select_tag(:station_id, content_tag(:option,'All',:value=>"All") + options_from_collection_for_select(result[:stations], "id","nameStation")) %>
+      <%= submit_tag "Submit", class: "btn  btn-primary" %>
+	  <% end %>
+	</div>
+</div>
+
+<div id="stock_list">
+</div>

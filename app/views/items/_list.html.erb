@@ -1,0 +1,55 @@
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption>List</caption>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Brand</th>
+      <th>Model</th>
+      <th>Distinction</th>
+      <% if current_user.admin? %>
+      <th>Cost per item</th>
+      <% end %>
+      <th>Life Cycle</th>
+      <th>Lead Time</th>
+      <th>Minimum Stock</th>
+      <th>Asset Type</th>
+      <th>Vendor</th>
+      <% if current_user.admin? %>
+      <th>Edit</th>
+      <th>Delete</th>
+      <% end %>
+    </tr>
+  </thead>
+<% if @list!=nil %>
+  <% @list.each do |list| %>
+    <tr>
+      <td><%= list.codeItem %></td>
+      <td><%= list.nameItem %></td>
+      <td><%= list.brand %></td>
+      <td><%= list.model %></td>
+      <td><%= list.distinction %></td>
+      <% if current_user.admin? %>
+      <td><%= list.cost %></td>
+      <% end %>
+      <td><%= toSensibleWords(toSensibleTime(list.lifeCycle)) %></td>
+      <td><%= toSensibleWords(toSensibleTime(list.leadTime)) %></td>
+      <td><%= list.minimumStock %></td>
+      <td><%= list.assetType.capitalize %></td>
+      <td><%= if list.vendor != nil
+                list.vendor.nameVendor
+              else 
+                'No vendor'
+              end
+          %>
+      </td>      
+        <% if current_user.admin? %>
+      <td><%=link_to "edit", edit_item_path(list[:id]) %></td>
+      <td><%= link_to "delete ", list, method: :delete, data: { confirm: "You sure?" } %></td>
+      <% end %>
+    </tr>     
+  <% end %>
+<% end %>
+
+</table>

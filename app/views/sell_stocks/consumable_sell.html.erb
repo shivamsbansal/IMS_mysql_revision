@@ -1,0 +1,27 @@
+<% provide(:title, 'Stock Sell') %>
+<h1>Stock Sell</h1>
+
+<div id="item_details">
+</div>
+
+<%= render 'stocks/stockList' %>
+
+<div class="row">
+  <div class="span4 offset3">
+    <%= form_tag('/sell_stock') do %>
+
+      <%= render 'shared/error_messages', object: @stock %>
+      <%= hidden_field_tag(:id, @stock.id) %>
+
+      <%= label_tag(:quantity, "Quantity of Stock Sold:") %>
+      <%= text_field_tag(:quantity) %>
+
+      <%= label_tag(:soldValue, "Total Value Sold at:") %>
+      <%= text_field_tag(:soldValue) %>
+
+      <strong>Double check the details as a user you won't be able cancel the sell.<strong><br>
+
+      <%= submit_tag "Update sold stock", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

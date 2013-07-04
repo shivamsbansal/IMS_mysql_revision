@@ -1,0 +1,82 @@
+<% provide(:title, 'Stock alerts') %>
+<h1>Stock alerts</h1>
+
+<h2>Station: <%= @station.nameStation %></h2>
+
+<strong>Start Date: <%= @dateStart.strftime('%d/%m/%Y') %></strong><br>
+<strong>End Date: <%= @dateEnd.strftime('%d/%m/%Y') %></strong>
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption>For Fixed Items</caption>
+  <thead>
+    <tr>
+      <th>Stock</th>
+      <th>Item name</th>
+      <th>Date of invoice</th>
+      <th>Date of expiry</th>
+    </tr>
+  </thead>
+<% if @lifecycle_fixed!=nil %>
+  <% @lifecycle_fixed.each do |ms| %>
+    <tr>
+      <td><%= link_to 'details', "/show_stock/#{ms.id}"%></td>
+      <td><%= ms.item.nameItem %></td>
+      <td><%= ms.invoiceDate.strftime('%d/%m/%Y') %></td>
+      <td><%= (ms.invoiceDate + ms.item.lifeCycle.seconds).to_date.strftime('%d/%m/%Y') %></td>
+    </tr>     
+  <% end %>
+<% end %>
+
+</table>
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption>For Consumable Items</caption>
+  <thead>
+    <tr>
+      <th>Stock</th>
+      <th>Item name</th>
+      <th>Life Cycle</th>
+      <th>Present Stock</th>
+      <th>Quantity to be Issued</th>
+    </tr>
+  </thead>
+<% if @lifecycle_consumable!=nil %>
+  <% @lifecycle_consumable.each do |list| %>
+    <tr>
+    	<% ms = list.first %>
+      <td><%= link_to 'details', "/show_stock/#{ms.id}"%></td>
+      <td><%= ms.item.nameItem %></td>
+      <td><%= toSensibleWords toSensibleTime ms.item.lifeCycle %></td>
+      <td><%= ms.presentStock %></td>
+      <td><%= list.last %></td>
+    </tr>     
+  <% end %>
+<% end %>
+
+</table>
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption>For Consumable Items - Associate List</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Item name</th>
+      <th>Date Of Issue</th>
+      <th>Quantity to be Issued</th>
+    </tr>
+  </thead>
+<% if @associate_list !=nil %>
+  <% @associate_list.each do |list| %>
+    <tr>
+      <td><%= list.associate.name %></td>
+      <td><%=link_to list.associate.email, "/assets/issued_list/#{list.associate_id}" %></td>
+      <td><%= list.stock.item.nameItem %></td>
+      <td><%= list.dateOfIssue.strftime('%d/%m/%Y') %></td>
+      <td><%= list.quantity %></td>
+    </tr>     
+  <% end %>
+<% end %>
+
+</table>
+

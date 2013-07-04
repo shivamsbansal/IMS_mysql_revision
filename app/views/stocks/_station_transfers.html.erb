@@ -1,0 +1,107 @@
+<div id="transfer_comments">
+</div>
+
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption><%= "Transfers to #{@station.nameStation}" %></caption>
+  <thead>
+    <tr>
+      <th>Chalan #</th>
+      <th>Station From</th>
+      <th>Item name</th>
+      <th>PO Id</th>
+      <th>PO Date</th>
+      <th>Invoice No.</th>
+      <th>Invoice Date</th>
+      <th>Warranty Period</th>
+      <th>Qnty</th>
+      <th>Cost</th>
+      <th>Date Of Dispatch</th>
+      <th>Acknowledge</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+
+<% if @transfers_to!=nil %>
+  <% @transfers_to.each do |transfer| %>
+    <tr>
+      <% list = transfer.stock %>
+      <td>   
+          <% if transfer.chalanNo != nil %>
+          <%= transfer.chalanNo %>
+          <% else %>
+          <%= "--" %>
+          <% end %> 
+      </td>
+      <td><%= Station.find(transfer.from).nameStation %></td>
+      <td><%= list.item.nameItem%></td>
+      <td><%= list.poId %></td>
+      <td><%= list.poDate.strftime('%d/%m/%Y') %></td>
+      <td><%= list.invoiceNo %></td>
+      <td><%= list.invoiceDate.strftime('%d/%m/%Y') %></td>
+      <td><%= toSensibleWords toSensibleTime list.warrantyPeriod %></td>
+      <td><%= list.initialStock %></td>
+      <td><%= list.presentStock * list.item.cost%></td>
+      <td><%= transfer.dateOfDispatch.strftime('%d/%m/%Y') %></td>
+      <% if transfer.chalanNo != nil %>
+      <td><%= link_to "acknowledge", "/acknowledge_receipt_stock/#{transfer.id}" %></td>
+      <% else %>
+      <td>Cannot</td>
+      <% end %>
+      <td><%=link_to "comments", "/transfer_comments/#{transfer[:id]}", remote: true %></td>
+    </tr>     
+  <% end %>
+<% end %>  
+</table>
+
+<%= form_tag( '/transfer_print', format: 'pdf', method: 'post') do %>
+<table class="table table-striped table-bordered table-condensed">
+  <caption><%= "Transfers from #{@station.nameStation}" %></caption>
+  <thead>
+    <tr>
+      <th>To print</th>
+      <th>Chalan #</th>
+      <th>To Station</th>
+      <th>Item Name</th>
+      <th>PO Id</th>
+      <th>PO Date</th>
+      <th>Invoice No.</th>
+      <th>Invoice Date</th>
+      <th>Warranty Period</th>
+      <th>Qnty</th>
+      <th>Cost</th>
+      <th>Date Of Dispatch</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+
+<% if @transfers_from!=nil %>
+  <% @transfers_from.each do |transfer| %>
+    <tr>
+      <% list = transfer.stock %>
+      <td><%= check_box_tag "transfers[]", transfer.id , false %></td>
+      <td>   
+          <% if transfer.chalanNo != nil %>
+          <%= transfer.chalanNo %>
+          <% else %>
+          <%= "--" %>
+          <% end %> 
+      </td>
+      <td><%= list.station.nameStation %></td>
+      <td><%= list.item.nameItem%></td>
+      <td><%= list.poId %></td>
+      <td><%= list.poDate.strftime('%d/%m/%Y') %></td>
+      <td><%= list.invoiceNo %></td>
+      <td><%= list.invoiceDate.strftime('%d/%m/%Y') %></td>
+      <td><%= toSensibleWords toSensibleTime list.warrantyPeriod %></td>
+      <td><%= list.initialStock %></td>
+      <td><%= list.presentStock * list.item.cost%></td>
+      <td><%= transfer.dateOfDispatch.strftime('%d/%m/%Y') %></td>
+      <td><%=link_to "comments", "/transfer_comments/#{transfer[:id]}", remote: true %></td>
+    </tr>     
+  <% end %>
+<% end %>
+
+</table>
+<%= submit_tag "Print", class: "btn btn-primary" %>
+<% end %>

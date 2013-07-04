@@ -1,0 +1,14 @@
+<% provide(:title, 'New Category') %>
+<h1>New Category</h1>
+
+<div class="row">
+  <div class="span5 offset3">
+    <%= form_for(@category, url: '/items/create_category') do |f| %>
+
+      <%= f.label :name %>
+      <%= f.text_field :nameCategory %>
+
+      <%= f.submit "Create new Category", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

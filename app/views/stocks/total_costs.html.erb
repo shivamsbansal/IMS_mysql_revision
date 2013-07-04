@@ -1,0 +1,21 @@
+<% provide(:title, 'Cost') %>
+<h1>Stations cost</h1>
+
+<div class="row">
+  <div class="span12">
+  	<%= form_tag("/stations_cost", method: :get, remote: true) do %>
+			<% if @stations!=nil %>
+			  <% @stations.each do |list| %>
+			  	<%= label_tag "stations_#{list.id}", list.nameStation, class: "checkbox inline" %>
+			  	<%= check_box_tag "stations[]", list.id,false,  :id => "stations_#{list.id}" %>
+			  <% end %>
+	</div>
+	<div class="span4">
+			  <%= submit_tag "Select stations", class: "btn  btn-primary" %>
+			<% end %>
+		<% end %>	
+	</div>
+</div>
+
+<div id="stations_cost">
+</div>

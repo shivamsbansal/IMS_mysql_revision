@@ -1,0 +1,16 @@
+<% provide(:title, 'Edit Category') %>
+<h1>Edit Category</h1>
+
+<div class="row">
+  <div class="span5 offset3">
+    <%= form_tag('/items/category_update') do |f| %>
+
+    	<%= hidden_field_tag(:id, @category[:id]) %>
+
+      <%= label_tag :name %>
+      <%= text_field_tag :nameCategory , @category.nameCategory%>
+
+      <%= submit_tag "Update Category", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

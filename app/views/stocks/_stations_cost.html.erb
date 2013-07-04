@@ -1,0 +1,58 @@
+
+<% @station_cost.each do |station| %>
+<table class="table table-striped table-bordered table-condensed">
+  <caption><strong><%= station.first.nameStation %></strong></caption>
+  <thead>
+    <tr>
+      <th>Item name</th>
+      <th>Purchase Cost of present stock</th>
+      <th>Purchase Cost of issued stock</th>
+      <th>Purchase Cost of transfered stock</th>
+      <th>Purchase Cost of destroyed stock</th>
+      <th>Purchase Cost of sold stock</th>
+      <th>Value at which stock sold</th>
+    </tr>
+  </thead>
+  <% 
+    totalPresent = 0 
+    totalIssued = 0
+    totalTransfered =0
+    totalDestroyed =0
+    totalSold =0
+    totalSoldValue=0
+  %>
+  <% total_cost = station.last %>
+  <% total_cost.each do |list| %>
+    <tr>
+      <% item = list.first %>
+    	<% 
+        totalPresent += list[1] * item.cost
+        totalIssued += list[2] * item.cost
+        totalTransfered += list[3] * item.cost
+        totalDestroyed += list[4] * item.cost
+        totalSold += list[5] * item.cost
+        totalSoldValue += list[6]
+      %>
+      <td><%= item.nameItem %></td>
+      <td><%= list[1] * item.cost %></td>
+      <td><%= list[2] * item.cost %></td>
+      <td><%= list[3] * item.cost %></td>
+      <td><%= list[4] * item.cost %></td>
+      <td><%= list[5] * item.cost %></td>
+      <td><%= list[6] %></td>
+    </tr>     
+  <% end %>
+    <tr>
+      <td><strong><%= 'Total' %></strong></td>
+      <td><strong><%= totalPresent  %></strong></td>
+      <td><strong><%= totalIssued  %></strong></td>
+      <td><strong><%= totalTransfered  %></strong></td>
+      <td><strong><%= totalDestroyed  %></strong></td>
+      <td><strong><%= totalSold  %></strong></td>
+      <td><strong><%= totalSoldValue %></strong></td>
+    </tr>
+
+
+</table>
+
+<% end %>

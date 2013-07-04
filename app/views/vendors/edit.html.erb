@@ -1,0 +1,29 @@
+<% provide(:title, 'Edit vendor') %>
+<h1>Edit vendor</h1>
+
+<div class="row">
+  <div class="span4 offset3">
+    <%= form_for(@vendor) do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= hidden_field_tag(:id, @vendor[:id]) %>
+
+      <%= label_tag(:nameVendor, "Vendor name:")%>
+      <%= text_field_tag(:nameVendor, @vendor.nameVendor) %>
+
+      <%= label_tag(:email, "Email:") %>
+      <%= text_field_tag(:email, @vendor.email )%>
+
+      <%= label_tag(:phone, "Phone:") %>
+      <%= number_field_tag(:phone, @vendor.phone) %>
+
+      <%= label_tag(:category_id, "Category:") %>
+      <%  @itemCategory = Category.all.map { |category| [category.nameCategory, category.id]}
+          @itemCategory = [['All', nil]] + @itemCategory %>
+      <%= select_tag(:category_id, options_for_select(@itemCategory, @vendor.category_id)) %>
+
+      <%= f.submit "Edit vendor", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

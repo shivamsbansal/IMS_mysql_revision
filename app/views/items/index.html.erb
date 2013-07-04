@@ -1,0 +1,21 @@
+<% provide(:title, 'Items') %>
+<h1>Items</h1>
+
+<div class="row">
+  <div class="span4 offset4">
+  	
+    <%= form_tag("/items/list", method: :get, remote: true) do %>
+
+      <%= label_tag(:category, "Category:") %>
+      <%= select_tag(:category, options_for_select(@itemCategory)) %>
+
+      <%= submit_tag "Select a category", class: "btn  btn-primary" %>
+  	<% end %>
+  </div>
+</div>
+
+<div id="item_details">
+</div>
+
+<div id="category_list">        
+</div>

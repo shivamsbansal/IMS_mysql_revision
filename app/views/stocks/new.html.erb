@@ -1,0 +1,61 @@
+<% provide(:title, 'Add stock') %>
+<h1>Add stock</h1> 
+
+
+
+<div class="row">
+  <div class="span4 offset4">
+    <%= form_tag("/stocks/choice", method: :get, remote: true) do %>
+
+      <%= label_tag(:category, "Category:") %>
+      <% @itemCategory = categoryList %>
+      <%= select_tag(:category, options_for_select(@itemCategory)) %>
+
+      <%= submit_tag "Select a category", class: "btn  btn-primary" %>
+  	<% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span4 offset3">
+    <%= form_for(@stock) do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= label_tag(:station_id, "Station:") %>
+      <%  result = user_access_stations(current_user) %>
+      <%= select_tag(:station_id, options_from_collection_for_select(result[:stations], "id","nameStation", @stock.station_id)) %>
+
+      <%= label_tag(:item_id, "Item:") %>
+      <%  @items = Item.all %>
+      <%= select_tag(:item_id, options_from_collection_for_select(@items, "id","nameItem", @stock.item_id)) %>
+
+      <%= label_tag(:poId, "Procurement Id") %>
+      <%= text_field_tag(:poId, @stock.poId) %>
+
+      <%= label_tag(:poDate, "Procurement Date:") %>
+      <%= date_select(:stock,:poDate, :order => [:day, :month, :year], :start_year => Time.now.year - 20, :end_year => Time.now.year, default: {day: @stock.poDate}) %>
+
+      <%= label_tag(:invoiceNo, "Invoice Number:") %>
+      <%= text_field_tag(:invoiceNo, @stock.invoiceNo) %>
+
+      <%= label_tag(:invoiceDate, "Invoice Date:") %>
+      <%= date_select(:stock,:invoiceDate, :order => [:day, :month, :year], :start_year => Time.now.year - 20, :end_year => Time.now.year, default: {day: @stock.invoiceDate}) %>
+
+      <%= label_tag(:warrantyPeriod, "Warranty Period:") %>
+      <%= timePeriod('warrantyPeriod',toInsensibleTime(@stock.warrantyPeriod)[:value] , false) %>
+      <%= timePeriodType('warrantyPeriod', toInsensibleTime(@stock.warrantyPeriod)[:period], false) %>
+
+      <%= label_tag(:initialStock, "Stock Supplied:") %>
+      <%= text_field_tag(:initialStock, @stock.initialStock) %>
+
+      <%= label_tag(:comments, "Comments:") %>
+      <%= text_field_tag(:comments, @stock.comments ) %>
+
+      <strong>Double check the details as a user you won't be able to edit the details.<strong>
+
+      <%= f.submit "Add stock", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+

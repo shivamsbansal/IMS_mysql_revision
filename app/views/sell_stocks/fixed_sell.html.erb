@@ -1,0 +1,33 @@
+<% provide(:title, 'Stock Sell') %>
+<h1>Stock Sell</h1>
+
+<div id="item_details">
+</div>
+
+<%= render 'stocks/stockList' %>
+
+<div class="row">
+  <div class="span10 offset1">
+    <%= form_tag('/sell_stock') do %>
+
+      <%= render 'shared/error_messages', object: @stock %>
+      <%= hidden_field_tag(:id, @stock.id) %>
+
+			<% if @assets!=nil %>
+			  <% @assets.each do |list| %>
+			  	<% if list.state == 'present' %>
+			  	<%= label_tag "assets_#{list.id}", list.assetSrNo, class: "checkbox inline" %>
+			  	<%= check_box_tag "assets[]", list.id,false,  :id => "assets_#{list.id}" %>
+			  	<% end %>        
+			  <% end %>
+			<% end %>
+
+      <%= label_tag(:soldValue, "Total Value Sold at:") %>
+      <%= text_field_tag(:soldValue) %>
+
+      <strong>Double check the details as a user you won't be able cancel the sell.<strong><br>
+
+      <%= submit_tag "Update sold stock", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

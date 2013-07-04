@@ -1,0 +1,40 @@
+<% provide(:title, 'Update Stock') %>
+<h1>Update Stock</h1>
+
+<div class="row">
+  <div class="span4 offset3">
+    <%= form_for(@stock) do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= label_tag(:station_id, "Station:") %>
+      <%  result = user_access_stations(current_user) %>
+      <%= select_tag(:station_id, options_from_collection_for_select(result[:stations], "id","nameStation", @stock.station_id), disabled: @disable) %>
+
+      <%= label_tag(:item_id, "Item:") %>
+      <%  @items = Item.all %>
+      <%= select_tag(:item_id, options_from_collection_for_select(@items, "id","nameItem", @stock.item_id), disabled: @disable) %>
+
+      <%= label_tag(:poId, "Procurement Id") %>
+      <%= text_field_tag(:poId, @stock.poId, disabled: @disable) %>
+
+      <%= label_tag(:poDate, "Procurement Date:") %>
+      <%= date_select(:stock,:poDate, :order => [:day, :month, :year], :start_year => Time.now.year - 20, :end_year => Time.now.year, default: {day: @stock.poDate}, disabled: @disable) %>
+
+      <%= label_tag(:invoiceNo, "Invoice Number:") %>
+      <%= text_field_tag(:invoiceNo, @stock.invoiceNo, disabled: @disable) %>
+
+      <%= label_tag(:invoiceDate, "Invoice Date:") %>
+      <%= date_select(:stock,:invoiceDate, :order => [:day, :month, :year], :start_year => Time.now.year - 20, :end_year => Time.now.year, default: {day: @stock.invoiceDate}, disabled: @disable) %>
+
+      <%= label_tag(:warrantyPeriod, "Warranty Period:") %>
+      <%= timePeriod('warrantyPeriod',toInsensibleTime(@stock.warrantyPeriod)[:value], @disable ) %>
+      <%= timePeriodType('warrantyPeriod', toInsensibleTime(@stock.warrantyPeriod)[:period], @disable)%>
+
+      <%= label_tag(:initialStock, "Stock Supplied:") %>
+      <%= text_field_tag(:initialStock, @stock.initialStock, disabled: @disable) %>
+
+      <%= f.submit "Update stock", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

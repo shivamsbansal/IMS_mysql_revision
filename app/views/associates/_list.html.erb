@@ -1,0 +1,27 @@
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption> Associates</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Date Of Joinin</th>
+      <th>Issued Items</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+<% if @associates!=nil %>
+  <% @associates.each do |associate| %>
+    <tr>
+      <td><%= associate.name%></td>
+      <td><%= associate.email %></td>
+      <td><%= associate.dateOfJoining.strftime('%d/%m/%Y') %></td>
+      <td><%= link_to "Issued Items", "/assets/issued_list/#{associate.id}" %></th>
+      <td><%=link_to "edit", edit_associate_path(associate.id) %></td>
+      <td><%= link_to "delete ", associate, method: :delete, data: { confirm: "You sure?" } %></td>
+    </tr>     
+  <% end %>
+<% end %>
+
+</table>

@@ -1,0 +1,34 @@
+<% provide(:title, 'Stock Transfer') %>
+<h1>Stock Transfer</h1>
+
+<div id="item_details">
+</div>
+
+<%= render 'stockList' %>
+
+<div class="row">
+  <div class="span4 offset3">
+    <%= form_for(@transfer, url: '/transfer_stock') do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= hidden_field_tag(:id, @stock.id) %>
+
+      <%= label_tag(:dateOfDispatch, "Date Of Dispatch:") %>
+      <%= date_select(:transfer,:dateOfDispatch, :order => [:day, :month, :year], :start_year => Time.now.year - 20, :end_year => Time.now.year, default: {day: @transfer.dateOfDispatch}) %>
+
+      <%= label_tag(:station_id, "Transfer to:") %>
+      <%  result = Station.all %>
+      <%= select_tag(:station_id, options_from_collection_for_select(result, "id","nameStation", @transfer.to)) %>
+
+      <%= label_tag(:quantity, "Quantity of Stock Transfer:") %>
+      <%= text_field_tag(:quantity) %>
+
+      <%= label_tag(:comments, "Comments:") %>
+      <%= text_field_tag(:comments, @transfer.comments ) %>
+
+      <strong>Double check the details as a user you won't be able cancel the transfer.<strong><br>
+
+      <%= f.submit "Transfer stock", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

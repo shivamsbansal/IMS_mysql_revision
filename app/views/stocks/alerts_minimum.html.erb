@@ -1,0 +1,26 @@
+<% provide(:title, 'Stock alerts') %>
+<h1>Stock alerts</h1>
+
+<table class="table table-striped table-bordered table-condensed">
+  <caption>Minimum Stock level reached</caption>
+  <thead>
+    <tr>
+      <th>Station</th>
+      <th>Item name</th>
+      <th>Minimum stock level</th>
+      <th>Present stock</th>
+    </tr>
+  </thead>
+<% if @minimum_stocks!=nil %>
+  <% @minimum_stocks.each do |list| %>
+    <tr>
+      <% ms = list.first %>
+      <td><%= list.last.nameStation %></td>
+      <td><%= ms.nameItem %></td>
+      <td><%= ms.minimumStock %></td>
+      <td><%= list[1] %></td>
+    </tr>     
+  <% end %>
+<% end %>
+
+</table>

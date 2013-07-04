@@ -1,0 +1,36 @@
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Associates <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to "List", associates_path %></li>
+    <li><%= link_to "Add/New", new_associate_path %></li>
+  </ul>
+</li>
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Stations <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to "Select", stations_path %></li>
+  </ul>
+</li>
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Items <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to "List", items_path %></li>
+  </ul>
+</li>
+<li id="fat-menu" class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Stock <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to "List", stocks_path %></li>
+    <li><%= link_to "Add/New", new_stock_path %></li>
+    <li><%= link_to "Transfers", '/transfers_list' %></li>
+    <li><%= link_to "Costs", '/total_costs' %></li>
+  </ul>
+</li>

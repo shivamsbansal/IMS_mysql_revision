@@ -1,0 +1,28 @@
+<% provide(:title, 'Consumable Issue') %>
+<h1>Consumable Issue</h1>
+
+<%= render 'stocks/stockList', item: @item %>
+
+</table>
+
+<div class="row">
+  <div class="span4 offset4">
+    <%= form_tag("/issueConsumable", method: "put") do %>
+	
+			<%= hidden_field_tag(:stock_id, @stock.id) %>
+
+    	<%= label_tag(:dateOfIssue, "Date of Issue:") %>
+      <%= date_select(:issued_consumable,:dateOfIssue, :order => [:day, :month, :year], :start_year => Time.now.year - 20, :end_year => Time.now.year) %>
+
+     	<%= label_tag(:associate_id, "Associate:") %>
+			<% @array = @associates.map {|f| ["#{f.name}, #{f.dateOfJoining}",f.id] } %>
+			<%= select_tag(:associate_id, options_for_select(@array)) %>
+
+      <%= label_tag(:quantity, "Quantity:") %>
+      <%= text_field_tag(:quantity) %>
+
+      <%= submit_tag "Issue Consumable", class: "btn  btn-primary" %>
+  	<% end %>
+
+	</div>
+</div>

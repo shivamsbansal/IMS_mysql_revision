@@ -1,0 +1,45 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to image_tag("amazon.jpg", alt: "Amazon"), 'http://www.amazon.com/', id: "logo" %>
+      <nav>
+        <ul class="nav pull-right">
+          <% if signed_in? == false %>
+          <li><%= link_to "Home", root_path %></li>
+          <% end %>
+          <% if signed_in? %>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Alerts <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "of minimum level", '/alerts_minimum'%></li>
+                <li><%= link_to "for end of lifecycle", '/alerts_lifecycle' %></li>
+              </ul>
+            </li>
+            <% if current_user.admin? %>
+              <li><%= render 'layouts/adminheader' %></li>
+            <% else %>
+              <li><%= render 'layouts/userheader' %></li>
+            <%end%>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", current_user %></li>
+                <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Sign out", signout_path, method: "delete" %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "Sign in", signin_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

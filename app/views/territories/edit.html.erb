@@ -1,0 +1,25 @@
+<% provide(:title, 'Edit Territory') %>
+<h1>Edit territory</h1>
+
+<div class="row">
+  <div class="span4 offset3">
+    <%= form_for(@territory) do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= hidden_field_tag(:id, @territory[:id]) %>
+
+      <%= label_tag(:nameTerritory, "Territory name:") %>
+      <%= text_field_tag(:nameTerritory, @territory.nameTerritory) %>
+
+      <%= label_tag(:idTerritory, "Territory Id:") %>
+      <%= text_field_tag(:idTerritory, @territory.idTerritory) %>
+
+       <%= label_tag(:region_id, "Region:") %>
+      <% region_array = Region.all.map { |region| [region.nameRegion, region.id]} %>
+      <%= select_tag(:region_id, options_for_select(region_array, @territory.region_id)) %>
+
+      <%= f.submit "Update territory", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<% provide(:title, 'Transfers') %>
+<h1>Transfers</h1>
+
+<div class="row">
+  <div class="span4 offset4">
+  	
+    <%= form_tag("/station_transfers", method: :get, remote: true) do %>
+
+      <%= label_tag(:station, "Station:") %>
+      <%= select_tag(:station, options_for_select(@stationList)) %>
+
+      <%= submit_tag "Select a station", class: "btn  btn-primary" %>
+  	<% end %>
+  </div>
+</div>
+
+<div id="transfers_list">        
+</div>
