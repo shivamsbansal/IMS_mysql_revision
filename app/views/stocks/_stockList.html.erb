@@ -62,9 +62,9 @@
       <th>Procurement Date</th>
       <th>Invoice No.</th>
       <th>Invoice Date</th>
-      <th>Warranty Period</th>
+      <th>Warranty Expiry</th>
       <th>Stock Supplied</th>
-      <th>Present</th>
+      <th>Available</th>
       <th>Issued</th>
       <th>Transfered</th>
       <th>Destroyed/ Consumed</th>
@@ -94,7 +94,7 @@
       <td><%= list.poDate.strftime('%d/%m/%Y') %></td>
       <td><%= list.invoiceNo %></td>
       <td><%= list.invoiceDate.strftime('%d/%m/%Y') %></td>
-      <td><%= toSensibleWords toSensibleTime list.warrantyPeriod %></td>
+      <td><%= (list.invoiceDate + list.warrantyPeriod.seconds).to_date.strftime('%d/%m/%Y') %></td>
       <td><%= list.initialStock %></td>
       <td><%= list.presentStock %></td>
       <td><%= list.issuedStock %></td>

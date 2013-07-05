@@ -71,16 +71,13 @@ class AssociatesController < ApplicationController
     if can_access_station(@associate.station) == false
       return
     end
-    @assets = @associate.assets
-    @assets.each do |asset|
-      asset.issued = false
-      @stock = asset.stock
-      @stock.presentStock = @stock.presentStock + 1
-      @stock.save
-      @asset.save
+    if @associate.assets != nil || @associate.issued_consumables != nil
+      flash[:notice] = "First withdraw the assets and consumables"
+      redirect_to associates_url
+      return
     end
     @associate.destroy
-    flash[:success] = "Associate destroyed , issued items retained and stock updated"
+    flash[:success] = "Associate destroyed"
     redirect_to associates_url
   end
 
